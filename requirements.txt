@@ -1,3 +1,2 @@
 groq
-bs4
-dotenv
+beautifulsoup4
