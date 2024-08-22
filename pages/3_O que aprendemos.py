@@ -19,7 +19,7 @@ Implementar o processamento da imagem e a detecção de códigos, incluindo como
 
 '''
 
-conteudo = st.text_input("Conteúdo:", "Roteiro da aula")
+conteudo = st.text_area("Conteúdo:", "Roteiro da aula")
 
 
 prompt = f"""

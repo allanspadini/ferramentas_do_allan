@@ -93,7 +93,7 @@ Treinar redes neurais para classificação de áudio é uma tarefa complexa, mas
 
 '''
 
-conteudo = st.text_input("Conteúdo:", "Roteiro do vídeo")
+conteudo = st.text_area("Conteúdo:", "Roteiro do vídeo")
 
 
 prompt = f"""
