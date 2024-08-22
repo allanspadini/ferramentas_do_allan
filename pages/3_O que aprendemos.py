@@ -1,61 +1,46 @@
 import streamlit as st
-import nbformat
-from groq import Groq
+import google.generativeai as genai
 import os
 from dotenv import load_dotenv
 
-client = Groq(
-    api_key=os.environ.get("GROQ_API_KEY"),
+load_dotenv()
+
+genai.configure(
+    api_key=os.environ.get("GEMINI_API_KEY"),
 )
 
-# Função para extrair o conteúdo de uma aula específica
-def extract_lesson_content(notebook_content):
-    # Carrega o notebook a partir do conteúdo
-    notebook = nbformat.reads(notebook_content, as_version=4)
-    
-    # Inicializa variáveis
-    in_lesson = False
-    lesson_content = []
-    
-    for cell in notebook.cells: 
-        # Se estamos na aula, adiciona o conteúdo da célula       
-        lesson_content.append(cell.source)
-    
-    # Concatena todo o conteúdo em uma única string
-    lesson_text = "\n".join(lesson_content)
-    
-    return lesson_text
+exemplo = '''
+Nessa aula, você aprendeu como:
 
-# Interface do Streamlit
-st.title("Em construção")
+Instalar a biblioteca de escaneamento de códigos de barras do ML Kit no Android Studio, utilizando uma abordagem desacoplada;
+Configurar o BarcodeScannerOptions para habilitar a detecção de todos os tipos de códigos de barras;
+Preparar a imagem de entrada para o scanner utilizando através do InputImage.fromMediaImage;
+Implementar o processamento da imagem e a detecção de códigos, incluindo como fechar o proxy e adicionar logs para verificar os resultados.
 
-uploaded_file = st.file_uploader("Carregue seu arquivo de notebook (.ipynb)", type="ipynb")
-aula = st.text_input("Aula:")
-if uploaded_file is not None:
-    # Lê o conteúdo do arquivo carregado
-    notebook_content = uploaded_file.read().decode('utf-8')
-    
-    if st.button("Extrair Conteúdo"):
-        # Extrai o conteúdo da aula específica
-        content = extract_lesson_content(notebook_content)
-        
-        prompt = f"""
-            Você deve criar 5 bullets sobre indicando conteúdos que o aluno aprendeu na {aula}. 
-            Cada bullet deve iniciar com um verbo no infinitivo impessoal. Se houver conteúdo
-            antes da aula os bullets devem indicar apenas conteúdo inédito que foi aprendido pelo aluno. 
-            Você deve utilizar o conteúdo a seguir para encontrar o conteúdo das aulas: {content}
-        """
-        # Mostra o conteúdo extraído na interface do Streamlit
-        if content:
-            chat_completion = client.chat.completions.create(
-                            messages=[
-                                {
-                                    "role": "user",
-                                    "content": prompt,
-                                }
-                            ],
-                            model="llama3-70b-8192",
-                        )
-            resposta = chat_completion.choices[0].message.content
-            
-            st.text_area("Conteúdo Extraído", resposta, height=300)
+'''
+
+conteudo = st.text_input("Conteúdo:", "Roteiro da aula")
+
+
+prompt = f"""
+Você é um criador de atividade O que aprendemos da Alura. Eu irei te passar o conteúdo da aula no qual você deve se basear para criar uma atividade o que aprendemos. 
+Nessa atividade devemos ter de 3 a 5 bullets falando um tópico que aprendemos na aula. Cada bullet deve sempre iniciar com um verbo.
+
+Conteúdo da aula:
+
+{conteudo}
+
+
+Exemplo de como o conteúdo deve ser organizado na atividade:
+
+{exemplo}
+"""
+
+# Adiciona um botão para executar a inferência
+if st.button("Rodar Inferência"):
+    model = genai.GenerativeModel('gemini-1.5-flash-latest')
+
+    response = model.generate_content(prompt)
+
+    #st.markdown(response.text)
+    st.text_area(label="Saída:", value=response.text, height=350)

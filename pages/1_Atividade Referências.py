@@ -1,17 +1,17 @@
 import streamlit as st
-from groq import Groq
 import requests
 from bs4 import BeautifulSoup
 import os
 from dotenv import load_dotenv
+import google.generativeai as genai
 
 # Entrada do usuário
 endereco = st.text_input("Link:", "https://pt.wikipedia.org/wiki/Ci%C3%AAncia_de_dados")
 # Carrega as variáveis de ambiente do arquivo .env
 load_dotenv()
 
-client = Groq(
-    api_key=os.environ.get("GROQ_API_KEY"),
+genai.configure(
+    api_key=os.environ.get("GEMINI_API_KEY"),
 )
 
 # Adiciona um botão para executar a inferência
@@ -34,14 +34,8 @@ if st.button("Rodar Inferência"):
             o texto com o símbolo > seguido de espaço e não utilize 
             palavras como o texto é bom porque, apenas explique porque ele é útil. Conteúdo:{text}
     """
-    chat_completion = client.chat.completions.create(
-        messages=[
-            {
-                "role": "user",
-                "content": prompt,
-            }
-        ],
-        model="llama3-70b-8192",
-    )
-    resposta = chat_completion.choices[0].message.content
-    st.text_area(label="Output Data:", value=resposta, height=350)
+    
+    model = genai.GenerativeModel('gemini-1.5-flash-latest')
+
+    response = model.generate_content(prompt)
+    st.text_area(label="Output Data:", value=response.text, height=350)
