@@ -109,7 +109,7 @@ Exemplo de como o conteúdo deve ser organizado na atividade:
 
 # Adiciona um botão para executar a inferência
 if st.button("Rodar Inferência"):
-    model = genai.GenerativeModel('gemini-1.5-flash-latest')
+    model = genai.GenerativeModel('gemini-1.5-pro')
 
     response = model.generate_content(prompt)
 
