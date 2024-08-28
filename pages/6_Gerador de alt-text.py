@@ -35,9 +35,6 @@ if uploaded_file is not None:
 
     #Gerar o prompt para o modelo de visão
 
-    prompt = "Crie um prompt para o modelo de visão para gerar uma imagem que corresponda ao alt-text gerado."
-    response = model.generate_content([prompt, sample_file])
-
     st.text_area(label="Saída:", value=response.text, height=350)
 
 
