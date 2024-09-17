@@ -27,7 +27,7 @@ if uploaded_file is not None:
     model = genai.GenerativeModel('gemini-1.5-flash')
 
     # Gerar o alt-text para a imagem
-    prompt = "Crie um alt-text descritivo e conciso para esta imagem."
+    prompt = "Crie um alt-text descritivo e conciso para esta imagem. O alt-text deve estar em português brasileiro"
     response = model.generate_content([prompt, sample_file])
 
     # Exibir o alt-text gerado
