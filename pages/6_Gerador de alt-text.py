@@ -24,7 +24,7 @@ if uploaded_file is not None:
     
 
     # Criar um modelo de visão
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    model = genai.GenerativeModel('gemini-1.5-pro-latest')
 
     # Gerar o alt-text para a imagem
     prompt = "Crie um alt-text descritivo e conciso para esta imagem. O alt-text deve estar em português brasileiro"

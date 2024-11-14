@@ -37,7 +37,7 @@ objetivos = f"""
 
 # Adiciona um botão para executar a inferência
 if st.button("Rodar Inferência"):
-    model = genai.GenerativeModel('gemini-1.5-pro')
+    model = genai.GenerativeModel('gemini-1.5-pro-latest')
 
     response = model.generate_content(descricao)
      
