@@ -44,7 +44,7 @@ if st.button("Rodar Inferência"):
     st.text_area(label="Exercício:", value=response.text, height=350)
 
     prompt2 = f"""
-        Preciso que apresente de forma didática a solução para este problema: {response.text}.
+        Preciso que apresente o código que resolve o problema e logo em seguida a explicação da resposta. Problema: {response.text}.
 
         Leve em consideração que esse é um exercício sobre o tema {tema}
 
