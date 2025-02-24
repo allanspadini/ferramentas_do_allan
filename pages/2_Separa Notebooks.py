@@ -1,5 +1,9 @@
 import streamlit as st
 import nbformat
+from senhas import check_password
+
+if not check_password():
+    st.stop()  # Do not continue if check_password is not True.
 
 # Função para dividir o notebook
 def split_notebook(notebook_content):

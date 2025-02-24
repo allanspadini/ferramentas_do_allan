@@ -4,6 +4,11 @@ from bs4 import BeautifulSoup
 import os
 from dotenv import load_dotenv
 import google.generativeai as genai
+from senhas import check_password
+
+if not check_password():
+    st.stop()  # Do not continue if check_password is not True.
+
 
 # Entrada do usuário
 endereco = st.text_input("Link:", "https://pt.wikipedia.org/wiki/Ci%C3%AAncia_de_dados")

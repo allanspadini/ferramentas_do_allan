@@ -2,6 +2,10 @@ import streamlit as st
 import google.generativeai as genai
 import os
 from dotenv import load_dotenv
+from senhas import check_password
+
+if not check_password():
+    st.stop()  # Do not continue if check_password is not True.
 
 # Carregar as variáveis de ambiente do arquivo .env
 load_dotenv()

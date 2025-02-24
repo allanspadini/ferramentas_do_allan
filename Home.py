@@ -1,9 +1,12 @@
 import streamlit as st
-
+from senhas import check_password
 st.set_page_config(
     page_title="Ferramentas do Allan",
     page_icon="🛠️",
 )
+
+if not check_password():
+    st.stop()  # Do not continue if check_password is not True.
 
 st.markdown('# Boas-vindas às ferramentas do Allan')
 

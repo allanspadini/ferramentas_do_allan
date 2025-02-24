@@ -3,6 +3,10 @@ import streamlit as st
 import os
 from dotenv import load_dotenv
 import google.generativeai as genai
+from senhas import check_password
+
+if not check_password():
+    st.stop()  # Do not continue if check_password is not True.
 
 load_dotenv()
 
