@@ -53,4 +53,4 @@ if st.button("Rodar Inferência"):
 
     response = model.generate_content(objetivos)
      
-    st.text_area(label="Objetivos do curso:", value=response.text, height=200)
+    st.markdown(response.text)
