@@ -40,7 +40,7 @@ if st.button("Rodar Inferência"):
             palavras como o texto é bom porque, apenas explique porque ele é útil. Conteúdo:{text}
     """
     
-    model = genai.GenerativeModel('gemini-1.5-pro-latest')
+    model = genai.GenerativeModel('gemini-2.0-flash')
 
     response = model.generate_content(prompt)
     st.text_area(label="Output Data:", value=response.text, height=350)

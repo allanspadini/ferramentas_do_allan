@@ -59,7 +59,7 @@ Exemplo de uma atividade que segue o padrão descrito:
 
 # Adiciona um botão para executar a inferência
 if st.button("Rodar Inferência"):
-    model = genai.GenerativeModel('gemini-1.5-pro-latest')
+    model = genai.GenerativeModel('gemini-2.0-flash')
 
     response = model.generate_content(prompt)
 
